@@ -3,8 +3,8 @@ import os
 import json
 from collections import defaultdict
 
-# Path to your zip file
-zip_file_path = '/Users/parshgoel/Desktop/nlp4lp.zip'  # Replace with the actual path to your zip file
+# Path to zip file
+zip_file_path = '/Users/parshgoel/Desktop/nlp4lp.zip' 
 extracted_dir = 'extracted_problems'  # Directory where the files will be extracted
 
 # Step 1: Extract the zip file
