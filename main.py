@@ -3,7 +3,6 @@ import os
 import json
 from collections import defaultdict
 
-# Path to zip file
 zip_file_path = '/Users/parshgoel/Desktop/nlp4lp.zip' 
 extracted_dir = 'extracted_problems'  # Directory where the files will be extracted
 
@@ -27,7 +26,7 @@ for file in extracted_files:
     elif file.endswith('input_targets.json'):
         grouped_files[folder]['input_targets'] = file
 
-# Step 4: Process the files and prepare them for fine-tuning
+# Step 4: Process the files and prepare them for fine-tuning in the chat format
 fine_tune_data = []
 
 for problem, files in grouped_files.items():
@@ -43,10 +42,13 @@ for problem, files in grouped_files.items():
                 with open(files['input_targets'], 'r', encoding='utf-8') as input_file:
                     input_targets_json = json.load(input_file)
 
-                # Create a fine-tuning entry
+                # Create a fine-tuning entry in the conversational format
                 fine_tune_data.append({
-                    "prompt": description_text,
-                    "completion": json.dumps(input_targets_json)  # Convert the target JSON to string
+                    "messages": [
+                        {"role": "system", "content": "This is an LLM Agent for optimization problems."},
+                        {"role": "user", "content": description_text},
+                        {"role": "assistant", "content": json.dumps(input_targets_json)}  # JSON as a string
+                    ]
                 })
 
             except json.JSONDecodeError:
@@ -56,10 +58,10 @@ for problem, files in grouped_files.items():
             print(f"Skipping {files['description']} due to encoding error or file not found.")
 
 # Step 5: Save the processed data in JSONL format (fine-tuning format)
-fine_tuning_file = 'fine_tune_dataset.jsonl'  # Output file path
+fine_tuning_file = 'fine_tune_chat_dataset.jsonl'  # Output file path
 
 with open(fine_tuning_file, 'w', encoding='utf-8') as output_file:
     for entry in fine_tune_data:
         output_file.write(json.dumps(entry) + '\n')
 
-print(f"Fine-tuning dataset has been saved to {fine_tuning_file}")
+print(f"Fine-tuning chat dataset has been saved to {fine_tuning_file}")
