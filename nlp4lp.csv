@@ -1,0 +1,1513 @@
+description,background/constraints/parameters,data
+"How many of which system should DEC produce and using what memories and disks to maximize the profit for the next quarter? The parameters involved are the number of systems \\param{N}, whether a system is a workstation or not for each system \\param{IsWorkstation}, the price for each system \\param{Price}, the number of disk drives for each system \\param{DiskDrives}, the number of 256K memory boards for each system \\param{MemoryBoards}, the maximum number of CPUs available \\param{MaxCpu}, the minimum and maximum total disk drives in the system \\param{MinDisk} and \\param{MaxDisk} respectively, the minimum and maximum total memory boards \\param{MinMemory} and \\param{MaxMemory} respectively, the demand for each system \\param{Demand}, the demand for general purpose systems \\param{DemandGP} and for workstations \\param{DemandWS}, the number of preordered systems \\param{Preorder}, the number of alternative memory configurations possible \\param{AltMemory}, and the compatibility of alternative memory with each system \\param{AltCompatible}.","{
+    ""background"": ""DEC is planning to maximize profit for the next quarter by producing an optimal mix of systems. The production will consider the type of systems (workstations or general purpose), various components such as memories and disks, and other constraints such as demand and available resources."",
+""constraints"": [
+        ""The number of systems produced is non-negative and integer"",
+        ""Only workstations or general-purpose systems can be produced for each system according to IsWorkstation"",
+        ""The production must not exceed the MaxCpu available CPUs"",
+        ""The total number of disk drives across all systems must be at least MinDisk and at most MaxDisk"",
+        ""The total number of 256K memory boards across all systems must be at least MinMemory and at most MaxMemory"",
+        ""The production of each system must not exceed its corresponding Demand"",
+        ""The total production of general purpose systems must not exceed DemandGP"",
+        ""The total production of workstations must not exceed DemandWS"",
+        ""Preorder systems must be fulfilled as specified by Preorder"",
+        ""Each system must be configured with compatible alternative memory configurations based on AltCompatible"",
+        ""The number of system configurations using alternative memory must not exceed AltMemory""
+    ],
+    ""objective"": ""Maximize the profit, which is calculated as the sum of the product of the number of each system produced and its corresponding Price"",
+""parameters"": [
+        {
+            ""definition"": ""Number of systems"",
+            ""symbol"": ""N"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Whether system i is a workstation"",
+            ""symbol"": ""IsWorkstation"",
+            ""value"": 0,
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Price of system i"",
+            ""symbol"": ""Price"",
+            ""value"": 0,
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Number of disk drives in system i"",
+            ""symbol"": ""DiskDrives"",
+            ""value"": 0,
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Number of 256K memory boards in system i"",
+            ""symbol"": ""MemoryBoards"",
+            ""value"": 0,
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Maximum number of CPUs available"",
+            ""symbol"": ""MaxCpu"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Minimum total disk drives"",
+            ""symbol"": ""MinDisk"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Maximum total disk drives"",
+            ""symbol"": ""MaxDisk"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Minimum total memory boards"",
+            ""symbol"": ""MinMemory"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Maximum total memory boards"",
+            ""symbol"": ""MaxMemory"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Demand of system i"",
+            ""symbol"": ""Demand"",
+            ""value"": 0,
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Demand for General Purpose systems"",
+            ""symbol"": ""DemandGP"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Demand for Workstations"",
+            ""symbol"": ""DemandWS"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Number of preordered system i"",
+            ""symbol"": ""Preorder"",
+            ""value"": 0,
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Number of alternative memory configurations possible"",
+            ""symbol"": ""AltMemory"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Whether the alternative memory is compatible with system i"",
+            ""symbol"": ""AltCompatible"",
+            ""value"": 0,
+            ""shape"": [
+                ""N""
+            ]
+        }
+    ]
+}","{
+  ""N"": 5,
+  ""IsWorkstation"": [false, false, false, true, true],
+  ""Price"": [60000, 40000, 30000, 30000, 15000],
+  ""DiskDrives"": [0.3, 1.7, 0, 1.4, 0],
+  ""MemoryBoards"": [4, 2, 2, 2, 1],
+  ""Demand"": [1800, 999999, 300, 999999, 999999],
+  ""Preorder"": [0, 500, 0, 500, 400],
+  ""AltCompatible"": [true, false, false, false, false],
+  ""MaxCpu"": 7000,
+  ""MinDisk"": 3000,
+  ""MaxDisk"": 7000,
+  ""MinMemory"": 8000,
+  ""MaxMemory"": 16000,
+  ""DemandGP"": 3800,
+  ""DemandWS"": 3200,
+  ""AltMemory"": 4000
+}"
+"What is the capacity expansion plan that results in the minimum cost, given the \\param{Demand} in period \\param{T}, the maximum oil capacity \\param{OilCap} in period \\param{T}, the \\param{CoalCost} per unit, the \\param{NukeCost} per unit, the maximum nuclear capacity \\param{MaxNuke}, the lifetime of a coal plant \\param{CoalLife}, and the lifetime of a nuclear plant \\param{NukeLife}?","{
+    ""background"": ""The task is to plan the expansion of energy capacity to meet a certain demand over a period while considering the costs and capacities of different energy sources and their lifetimes."",
+    ""constraints"": [
+        ""Meet the energy demand in period T"",
+        ""Do not exceed the maximum oil capacity in period T"",
+        ""Do not exceed the maximum nuclear capacity""
+    ],
+    ""objective"": ""Minimize the total cost of the capacity expansion plan"",
+    ""parameters"": [
+        {
+            ""definition"": ""Number of time periods"",
+            ""symbol"": ""T"",
+            ""value"": """",
+            ""shape"": []
+        }
+        {
+            ""definition"": ""The demand in period t"",
+            ""symbol"": ""Demand"",
+            ""value"": """",
+            ""shape"": [
+                ""T""
+            ]
+        },
+        {
+            ""definition"": ""The maximum oil capacity in period t"",
+            ""symbol"": ""OilCap"",
+            ""value"": """",
+            ""shape"": [
+                ""T""
+            ]
+        },
+        {
+            ""definition"": ""The cost of coal per unit"",
+            ""symbol"": ""CoalCost"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""The cost of nuclear energy per unit"",
+            ""symbol"": ""NukeCost"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""The maximum nuclear capacity"",
+            ""symbol"": ""MaxNuke"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""The lifetime of a coal plant"",
+            ""symbol"": ""CoalLife"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""The lifetime of a nuclear plant"",
+            ""symbol"": ""NukeLife"",
+            ""value"": 0,
+            ""shape"": []
+        }
+    ]
+}","{
+  ""T"": 12,
+  ""Demand"": [10, 15, 17, 20, 13, 19, 10, 25, 30, 33, 30, 35],
+  ""OilCap"": [15, 14, 13, 10, 10, 7, 5, 5, 5, 5, 5, 5],
+  ""CoalCost"": 10,
+  ""NukeCost"": 5,
+  ""MaxNuke"": 20,
+  ""CoalLife"": 5,
+  ""NukeLife"": 10
+}"
+"""The goal is to find the minimal number of nurses the hospital needs to hire for a planning period of \\param{Period}. The hospital has a known demand for nurses across a week, specified by the array \\param{Demand}, where each element corresponds to the demand for a particular day in the period.
+","{
+    ""background"": ""A hospital is trying to determine the minimal number of nurses to hire over a planning period to meet the daily demand for nursing staff."",
+    ""constraints"": [
+        ""Number of nurses is non-negative"",
+        ""The number of nurses hired must meet or exceed the demand for each day of the period""
+    ],
+    ""objective"": ""Minimize the number of nurses that the hospital needs to hire for the planning period"",
+    ""parameters"": [
+        {
+            ""definition"": ""Number of days"",
+            ""symbol"": ""T"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""The planning period for nurse staffing"",
+            ""symbol"": ""Period"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Array of demands for nurses for days"",
+            ""symbol"": ""Demand"",
+            ""value"": """",
+            ""shape"": [
+                ""T""
+            ]
+        }
+    ]
+}","{
+  ""T"": 7,
+  ""Period"": 4,
+  ""Demand"": [0, 5, 9, 15, 4, 7, 3]
+}"
+"Find paths along which all data reach their intended destinations, while minimizing the total cost. The links between nodes are characterized by their capacities (\\param{Capacity}) and associated costs (\\param{Cost}), where each link i connects a start node (\\param{StartNode}_i) to an end node (\\param{EndNode}_i). There is a set number of data flow requirements (\\param{F}), each with a source node (\\param{Source}_j) and destination node (\\param{Destination}_j), and a specific data rate (\\param{DataRate}_j) that must be achieved.","{
+    ""background"": ""Paths must be established in a network of nodes where links have defined capacities and associated costs, ensuring data reach their intended destinations at specific rates."",
+    ""constraints"": [
+        ""Data flow on a link cannot exceed its capacity"",
+        ""Each link's data flow must be non-negative"",
+        ""The sum of data rates on all links from each source node must be at least the required data rate for that source"",
+        ""The sum of data rates on all links to each destination node must be at least the required data rate for that destination"",
+        ""Flow conservation must be maintained at intermediate nodes (i.e., the amount of data entering a non-source, non-destination node on incoming links equals the data leaving on outgoing links)""
+    ],
+    ""objective"": ""Minimize the total cost of data transmission across all links"",
+    ""parameters"": [
+        {
+            ""definition"": ""The number of links between nodes in the network."",
+            ""symbol"": ""NumLinks"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""The starting node for link ij"",
+            ""symbol"": ""StartNode"",
+            ""value"": """",
+            ""shape"": [""NumLinks""]
+        },
+        {
+            ""definition"": ""The ending node for link ij"",
+            ""symbol"": ""EndNode"",
+            ""value"": """",
+            ""shape"": [""NumLinks""]
+        },
+        {
+            ""definition"": ""The maximum capacity for link ij"",
+            ""symbol"": ""Capacity"",
+            ""value"": """",
+            ""shape"": [""NumLinks""]
+        },
+        {
+            ""definition"": ""The cost for transporting data through link ij"",
+            ""symbol"": ""Cost"",
+            ""value"": """",
+            ""shape"": [""NumLinks""]
+        },
+        {
+            ""definition"": ""The number of data flow requirements."",
+            ""symbol"": ""NumFlowReqs"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""The source node for data flow kl"",
+            ""symbol"": ""Source"",
+            ""value"": """",
+            ""shape"": [""NumFlowReqs""]
+        },
+        {
+            ""definition"": ""The destination node for data flow kl"",
+            ""symbol"": ""Destination"",
+            ""value"": """",
+            ""shape"": [""NumFlowReqs""]
+        },
+        {
+            ""definition"": ""The rate of data flow for flow kl"",
+            ""symbol"": ""DataRate"",
+            ""value"": """",
+            ""shape"": [""NumFlowReqs""]
+        }
+    ]
+}
+","{
+    ""NumLinks"": 4,
+    ""StartNode"": [1, 2, 2, 3],
+    ""EndNode"": [2, 3, 4, 4],
+    ""Capacity"": [50, 40, 60, 50],
+    ""Cost"": [2, 3, 1, 1],
+
+    ""NumFlowReqs"": 2,
+    ""Source"": [1, 2],
+    ""Destination"": [4, 3],
+    ""DataRate"": [40, 30]
+}"
+" The objective is to minimize the total fuel \\sum_{t=0}^{\\param{TotalTime}-1} |\\param{a_t}| spent subject to the initial position \\param{InitialPosition}, initial velocity \\param{InitialVelocity}, final position \\param{FinalPosition}, final velocity \\param{FinalVelocity}, and total time \\param{TotalTime}.","{
+    ""background"": ""The problem involves minimizing the total fuel, represented by the sum of absolute accelerations over time, for an object with given initial and final positions and velocities over a specified total time period."",
+    ""constraints"": [],
+    ""objective"": ""Minimize the total fuel, which is the sum of absolute values of acceleration over time"",
+    ""parameters"": [
+        {
+            ""definition"": ""Initial position of the object"",
+            ""symbol"": ""InitialPosition"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Initial velocity of the object"",
+            ""symbol"": ""InitialVelocity"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Final position of the object"",
+            ""symbol"": ""FinalPosition"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Final velocity of the object"",
+            ""symbol"": ""FinalVelocity"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Total time over which the object is moving"",
+            ""symbol"": ""TotalTime"",
+            ""value"": """",
+            ""shape"": []
+        }
+    ]
+}","{
+    ""InitialPosition"": 0,
+    ""InitialVelocity"": 0,
+    ""FinalPosition"": 1,
+    ""FinalVelocity"": 0,
+    ""TotalTime"": 20
+}"
+"The objective is to minimize the maximum thrust required, which is max_t |a_t| over the duration T, with initial conditions set by X0, V0, and final conditions set by XT and VT.","{
+    ""background"": ""The problem is to find the optimal control profile that minimizes the maximum thrust required over a certain duration, considering initial and final conditions for position and velocity."",
+    ""constraints"": [
+        ""Thrust limits are determined by minimizing the maximum absolute value of acceleration over time T""
+    ],
+    ""objective"": ""Minimize the maximum thrust required across the given duration T"",
+    ""parameters"": [
+        {
+            ""definition"": ""Initial position of the object"",
+            ""symbol"": ""X0"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Initial velocity of the object"",
+            ""symbol"": ""V0"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Final position of the object"",
+            ""symbol"": ""XT"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Final velocity of the object"",
+            ""symbol"": ""VT"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Time duration for the journey"",
+            ""symbol"": ""T"",
+            ""value"": 0,
+            ""shape"": []
+        }
+    ]
+}","{
+    ""X0"": 0,
+    ""V0"": 0,
+    ""XT"": 1,
+    ""VT"": 0,
+    ""T"": 20
+}"
+"Formulate the problem of determining the quantities of each spare part to be made during the month so as to maximize \\param{Profit}. Each spare part k requires \\param{Time} on machine s, and each machine s has a maximum monthly capacity of \\param{Capacity}.","{
+    ""background"": ""The problem involves determining the optimal quantities of various spare parts to be produced in a month, considering the time required on different machines and the machines' monthly capacities."",
+    ""constraints"": [
+        ""Every spare part quantity produced is non-negative"",
+        ""Total time used on each machine for all spare parts cannot exceed the machine's monthly capacity""
+    ],
+    ""objective"": ""Maximize the total profit from the production of spare parts"",
+   ""parameters"": [
+        {
+            ""definition"": ""Number of spare parts to be produced"",
+            ""symbol"": ""NumParts"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Number of machines available"",
+            ""symbol"": ""NumMachines"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""The time taken to make one unit of spare part k on machine s"",
+            ""symbol"": ""Time"",
+            ""value"": """",
+            ""shape"": [""NumParts"", ""NumMachines""]
+        },
+        {
+            ""definition"": ""Profit from producing one unit of spare part k"",
+            ""symbol"": ""Profit"",
+            ""value"": """",
+            ""shape"": [""NumParts""]
+        },
+        {
+            ""definition"": ""Capacity of machine s for the month"",
+            ""symbol"": ""Capacity"",
+            ""value"": """",
+            ""shape"": [""NumMachines""]
+        }
+    ]
+}","{
+    ""NumParts"": 5,
+    ""NumMachines"": 2,
+    ""Time"": [
+        [2, 3],
+        [1, 2],
+        [3, 2],
+        [3, 1],
+        [1, 1]
+    ],
+    ""Profit"": [30, 20, 40, 25, 10],
+    ""Capacity"": [700, 1000]
+}"
+Find the lamp powers \\param{power_j} that minimize the absolute error between the illuminations \\param{ill_i} and the desired illuminations \\param{DesiredIlluminations}. The relationship between the lamp powers and the illuminations is given by coefficients \\param{Coefficients}.,"{
+    ""background"": ""The problem focuses on finding the optimal powers for a set of lamps such that the illumination provided by the lamps has the minimum absolute error compared to the desired illumination levels. The relationship between lamp powers and their resulting illumination at various points is quantified by given coefficients."",
+    ""constraints"": [
+        ""Lamp powers are non-negative""
+    ],
+    ""objective"": ""Minimize the absolute error between the actual illumination levels and the desired illumination levels"",
+    ""parameters"": [
+        {
+            ""definition"": ""Number of different illuminations"",
+            ""symbol"": ""N"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Number of lamp powers"",
+            ""symbol"": ""M"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Coefficients relating lamp powers to illumination"",
+            ""symbol"": ""Coefficients"",
+            ""value"": """",
+            ""shape"": [
+                ""N"",
+                ""M""
+            ]
+        },
+        {
+            ""definition"": ""Desired level of illuminations"",
+            ""symbol"": ""DesiredIlluminations"",
+            ""value"": """",
+            ""shape"": [
+                ""N""
+            ]
+        }
+    ]
+}","{
+  ""N"": 3,
+  ""M"": 2,
+  ""Coefficients"": [
+    [0.5, 0.3],
+    [0.2, 0.4],
+    [0.1, 0.6]
+  ],
+  ""DesiredIlluminations"": [14, 3, 12]
+}"
+"We want to assign all students to schools, while minimizing the total distance traveled by all students. We have a total number of \\param{S} schools, \\param{G} student groups, and \\param{N} neighborhoods. Each school s has a capacity for student group g represented by \\param{Capacity}. The population of student group g in neighborhood n is given by \\param{Population}. The distance between neighborhood n and school s is denoted as \\param{Distance}. We may ignore the fact that numbers of students must be integers.","{
+    ""background"": ""The problem involves assigning student groups from various neighborhoods to different schools with the aim of minimizing the total distance traveled by all students, taking into consideration the capacity of the schools and distribution of student groups."",
+    ""constraints"": [
+        ""Total number of students from each student group g assigned from neighborhood n to schools does not exceed the Population of group g in neighborhood n"",
+        ""Total number of students from each student group g assigned to school s does not exceed the Capacity of school s for student group g"",
+        ""Each student is assigned to exactly one school"",
+        ""All populations, capacities, and distances are non-negative""
+    ],
+    ""objective"": ""Minimize the total distance traveled by all students in their assignments to schools"",
+    ""parameters"": [
+        {
+            ""definition"": ""Total number of schools"",
+            ""symbol"": ""S"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Total number of student groups"",
+            ""symbol"": ""G"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Total number of neighborhoods"",
+            ""symbol"": ""N"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Capacity of school s for student group g"",
+            ""symbol"": ""Capacity"",
+            ""value"": """",
+            ""shape"": [
+                ""S"",
+                ""G""
+            ]
+        },
+        {
+            ""definition"": ""Population of student group g in neighborhood n"",
+            ""symbol"": ""Population"",
+            ""value"": """",
+            ""shape"": [
+                ""N"",
+                ""G""
+            ]
+        },
+        {
+            ""definition"": ""Distance between neighborhood n and school s"",
+            ""symbol"": ""Distance"",
+            ""value"": """",
+            ""shape"": [
+                ""N"",
+                ""S""
+            ]
+        }
+    ]
+}","{
+  ""S"": 3,
+  ""G"": 2,
+  ""N"": 4, 
+  ""Capacity"": [
+    [15, 20],
+    [20, 15],
+    [5, 17]
+  ],
+  ""Population"": [
+    [7, 19],
+    [4, 12],
+    [9, 2],
+    [6, 8]
+  ],
+  ""Distance"": [
+    [5.2, 4.0, 3.1],
+    [3.8, 5.5, 6.1],
+    [4.2, 3.5, 5.0],
+    [5.0, 4.1, 3.2]
+  ]
+}"
+"Minimize the total cost of the production and inventory schedule over \\param{T} periods, given \\param{Deliver} for each period, a \\param{StorageCost} for holding inventory, and a \\param{SwitchCost} for changing production between periods.","{
+    ""background"": ""A production and inventory schedule over a set number of periods requires minimization of the total cost, which is a combination of production costs, storage costs for inventory, and switching costs for changing production."",
+    ""constraints"": [
+        ""The production amount in each period is non-negative"",
+        ""The inventory level in each period is non-negative"",
+        ""The production schedule must meet the delivery requirement Deliver in each period"",
+        ""The switch cost is incurred when changing production between periods""
+    ],
+    ""objective"": ""Minimize the total cost of production and inventory over T periods"",
+    ""parameters"": [
+        {
+            ""definition"": ""Demand for the product in each period i"",
+            ""symbol"": ""Deliver"",
+            ""value"": """",
+            ""shape"": [
+                ""T""
+            ]
+        },
+        {
+            ""definition"": ""Cost to hold one unit of product in storage for one period"",
+            ""symbol"": ""StorageCost"",
+            ""value"": 0.0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Cost to switch the production from one period to another"",
+            ""symbol"": ""SwitchCost"",
+            ""value"": 0.0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Total number of periods"",
+            ""symbol"": ""T"",
+            ""value"": 0,
+            ""shape"": []
+        }
+    ]
+}","{
+  ""T"": 12,
+  ""Deliver"": [100, 120, 110, 130, 150, 100, 90, 110, 95, 125, 130, 100],
+  ""StorageCost"": 5,
+  ""SwitchCost"": 10
+}"
+"The objective is to maximize the number of units of currency \\param{N} that we end up with at the end of the day, through a sequence of currency transactions. We start with a certain amount \\param{Start} for each currency, there is a limit \\param{Limit} to the number of transactions we can perform for each currency, and the exchange rates are given by \\param{Rate}.","{
+    ""background"": ""The goal is to maximize the total units of currency through transactions with starting quantities, transaction limits for each currency, and defined exchange rates."",
+    ""constraints"": [
+        ""Number of transactions for each currency is non-negative"",
+        ""Number of transactions for each currency does not exceed the specified Limit""
+    ],
+    ""objective"": ""Maximize the final total number of units of currency N"",
+   ""parameters"": [
+        {
+            ""definition"": ""Number of different currencies"",
+            ""symbol"": ""N"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Initial amount of currency i"",
+            ""symbol"": ""Start"",
+            ""value"": """",
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Limit for the number of transactions for currency i"",
+            ""symbol"": ""Limit"",
+            ""value"": """",
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Exchange rate from currency i to currency j"",
+            ""symbol"": ""Rate"",
+            ""value"": """",
+            ""shape"": [
+                ""N"",
+                ""N""
+            ]
+        }
+    ]
+}","{
+    ""N"": 3,
+    ""Start"": [100.0, 50.0, 200.0],
+    ""Limit"": [1000.0, 200.0, 3000.0],
+    ""Rate"": [
+        [0.99, 0.9, 1.02],
+        [0.95, 0.99, 0.92],
+        [0.9, 0.91, 0.99]
+    ]
+}"
+"We are aiming at maximizing total net income subject to the \\param{Cash} availability and machine capacity limitations. The problem parameters include: the initial \\param{Cash} available, the \\param{Hour}(s) required to produce each of the \\param{P} products, the \\param{Cost} to produce each of the products, the \\param{Price} at which each product can be sold, the \\param{InvestPercentage} of income from each product to be reinvested, the \\param{UpgradeHours} required for upgrading the machinery, the \\param{UpgradeCost} associated with upgrading, and the total available \\param{AvailableHours} for machine operation.","{
+    ""background"": ""The goal is to maximize total net income from producing various products with constraints on initial cash, machine hours, and production costs. Part of the income is to be reinvested, and there is an option to upgrade machinery."",
+    ""constraints"": [
+        ""Initial cash available does not exceed Cash"",
+        ""Total production hours for all products do not exceed AvailableHours"",
+        ""Total cost to produce all products does not exceed Cash"",
+        ""Cost to upgrade machinery does not exceed Cash"",
+        ""Production hours for upgrading machinery do not exceed AvailableHours""
+    ],
+    ""objective"": ""Maximize total net income considering production, selling price, cost, and reinvestment"",
+    ""parameters"": [
+        {
+            ""definition"": ""Number of products"",
+            ""symbol"": ""P"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Initial cash available for investment"",
+            ""symbol"": ""Cash"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Hours required to produce one unit of product i"",
+            ""symbol"": ""Hour"",
+            ""value"": """",
+            ""shape"": [
+                ""P""
+            ]
+        },
+        {
+            ""definition"": ""Cost to produce one unit of product i"",
+            ""symbol"": ""Cost"",
+            ""value"": """",
+            ""shape"": [
+                ""P""
+            ]
+        },
+        {
+            ""definition"": ""Selling price for one unit of product i"",
+            ""symbol"": ""Price"",
+            ""value"": """",
+            ""shape"": [
+                ""P""
+            ]
+        },
+        {
+            ""definition"": ""Percentage of income to reinvest for product i"",
+            ""symbol"": ""InvestPercentage"",
+            ""value"": """",
+            ""shape"": [
+                ""P""
+            ]
+        },
+        {
+            ""definition"": ""Hours required for upgrading the machinery"",
+            ""symbol"": ""UpgradeHours"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Cost associated with upgrading the machinery"",
+            ""symbol"": ""UpgradeCost"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Total available machine hours"",
+            ""symbol"": ""AvailableHours"",
+            ""value"": """",
+            ""shape"": []
+        }
+    ]
+}","{
+  ""P"": 2,
+  ""Cash"": 3000,
+  ""Hour"": [2, 6],
+  ""Cost"": [3, 2],
+  ""Price"": [6, 5],
+  ""InvestPercentage"": [0.4, 0.3],
+  ""UpgradeHours"": 2000,
+  ""UpgradeCost"": 400,
+  ""AvailableHours"": 2000
+}"
+"We want to maximize the daily profit of the company, which is the total revenue minus the total cost. The company has \\param{N} different products, each requiring \\param{AssemblyHour} hours for assembly, \\param{TestingHour} hours for testing, and with a material cost of \\param{MaterialCost}. The company cannot exceed \\param{MaxAssembly} hours for assembly and \\param{MaxTesting} hours for testing. Each product can be sold at \\param{Price}, but there is an opportunity to work \\param{MaxOvertimeAssembly} overtime hours for assembly at a cost of \\param{OvertimeAssemblyCost} per hour. Additionally, a material discount of \\param{MaterialDiscount} is offered when a purchase reaches the \\param{DiscountThreshold}.","{
+    ""background"": ""The company seeks to maximize daily profit by determining an optimal production mix for N different products, considering assembly and testing time constraints, material costs, and the potential for overtime and discounts."",
+    ""constraints"": [
+        ""Total assembly hours must not exceed MaxAssembly hours"",
+        ""Total testing hours must not exceed MaxTesting hours"",
+        ""The number of products produced is non-negative"",
+        ""The number of overtime assembly hours used is at most MaxOvertimeAssembly""
+    ],
+    ""objective"": ""Maximize the total daily profit, which is the total revenue minus the total cost including overtime costs, regular material costs, and considering material discounts"",
+   ""parameters"": [
+        {
+            ""definition"": ""Number of different products"",
+            ""symbol"": ""N"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Hours required to assemble product i"",
+            ""symbol"": ""AssemblyHour"",
+            ""value"": """",
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Hours required to test product i"",
+            ""symbol"": ""TestingHour"",
+            ""value"": """",
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Material cost for product i"",
+            ""symbol"": ""MaterialCost"",
+            ""value"": """",
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Maximum total hours available for assembly"",
+            ""symbol"": ""MaxAssembly"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Maximum total hours available for testing"",
+            ""symbol"": ""MaxTesting"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Selling price for product i"",
+            ""symbol"": ""Price"",
+            ""value"": """",
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Maximum overtime hours available for assembly"",
+            ""symbol"": ""MaxOvertimeAssembly"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Overtime cost for assembly per hour"",
+            ""symbol"": ""OvertimeAssemblyCost"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Discount on material cost when a certain threshold is reached"",
+            ""symbol"": ""MaterialDiscount"",
+            ""value"": 0.0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Threshold for the quantity to reach to obtain the material discount"",
+            ""symbol"": ""DiscountThreshold"",
+            ""value"": 0,
+            ""shape"": []
+        }
+    ]
+}","{
+  ""N"": 2,
+  ""AssemblyHour"": [0.25, 0.3333],
+  ""TestingHour"": [0.125, 0.3333],
+  ""MaterialCost"": [1.2, 0.9],
+  ""MaxAssembly"": 10,
+  ""MaxTesting"": 70,
+  ""Price"": [9, 8],
+  ""MaxOvertimeAssembly"": 50,
+  ""OvertimeAssemblyCost"": 5,
+  ""MaterialDiscount"": 10,
+  ""DiscountThreshold"": 300
+}"
+"We want to know how many times should we execute each process to maximize the revenue for the next month (you can assume that the number of times that each process is executed is a floating point number). The problem involves \\param{O} options, \\param{P} price points, and \\param{L} processes with \\param{Allocated} resources, \\param{Price} at each price point, \\param{Input} required for each option in each process, \\param{Output} produced for each price point in each process, and \\param{Cost} for each process.","{
+    ""background"": ""The goal is to determine the optimal execution frequency of each process to maximize the revenue for the coming month, involving various processes, options, and price points, each with associated resources, prices, inputs, outputs, and costs."",
+    ""constraints"": [
+        ""Each process execution number is non-negative"",
+        ""Total resource allocation for all processes does not exceed Allocated resources"",
+        ""Inputs required for executing processes for all options do not exceed available Input for each option"",
+        ""Outputs produced from executing processes for all price points do not exceed the demand represented by Output at each price point""
+    ],
+    ""objective"": ""Maximize the total revenue, which is calculated based on the Price at each price point, the number of times each process is executed, and the Cost for each process"",
+    ""parameters"": [
+        {
+            ""definition"": ""Number of options"",
+            ""symbol"": ""O"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Number of price points"",
+            ""symbol"": ""P"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Number of processes"",
+            ""symbol"": ""L"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Allocated resources for each option"",
+            ""symbol"": ""Allocated"",
+            ""value"": """",
+            ""shape"": [
+                ""O""
+            ]
+        },
+        {
+            ""definition"": ""Price at each price point"",
+            ""symbol"": ""Price"",
+            ""value"": """",
+            ""shape"": [
+                ""P""
+            ]
+        },
+        {
+            ""definition"": ""Input resources required for each option in each process"",
+            ""symbol"": ""Input"",
+            ""value"": """",
+            ""shape"": [
+                ""L"",
+                ""O""
+            ]
+        },
+        {
+            ""definition"": ""Output produced for each price point in each process"",
+            ""symbol"": ""Output"",
+            ""value"": """",
+            ""shape"": [
+                ""L"",
+                ""P""
+            ]
+        },
+        {
+            ""definition"": ""Cost for each process"",
+            ""symbol"": ""Cost"",
+            ""value"": """",
+            ""shape"": [
+                ""L""
+            ]
+        }
+    ]
+}","{
+  ""O"": 2,
+  ""P"": 2,
+  ""L"": 3,
+  ""Allocated"": [8000, 5000],
+  ""Price"": [38, 33],
+  ""Input"": [
+    [3, 5],
+    [1, 1],
+    [5, 3]
+  ],
+  ""Output"": [
+    [4, 3],
+    [1, 1],
+    [3, 4]
+  ],
+  ""Cost"": [51, 11, 40]
+}"
+"We want to know how many shares the investor needs to sell in order to raise the needed money, net of capital gains and transaction costs, \\param{K}, while maximizing the expected value of his portfolio next year. The investor initially bought \\param{Bought} shares at a purchase price of \\param{BuyPrice} per share. The current market price and expected future market price of the shares are \\param{CurrentPrice} and \\param{FuturePrice}, respectively. The transaction cost rate per share sold is \\param{TransactionRate}, and the capital gains tax rate is \\param{TaxRate}.","{
+    ""background"": ""An investor needs to sell shares of an asset they purchased in order to raise a certain amount of money, taking into account taxes and transaction costs. The aim is to maximize the expected value of the remaining portfolio for the next year."",
+    ""constraints"": [
+        ""Number of shares sold is non-negative"",
+        ""Number of shares sold is less than or equal to Bought"",
+        ""Amount raised from selling shares after deducting taxes and transaction costs is at least K"",
+        ""Capital gains tax is applied only on the profit per share (CurrentPrice - BuyPrice)""
+    ],
+    ""objective"": ""Maximize the expected value of the investor's portfolio next year"",
+    ""parameters"": [
+        {
+            ""definition"": ""Number of different shares"",
+            ""symbol"": ""N"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Amount of each share initially bought"",
+            ""symbol"": ""Bought"",
+            ""value"": """",
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Purchase price of each share"",
+            ""symbol"": ""BuyPrice"",
+            ""value"": """",
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Current market price of each share"",
+            ""symbol"": ""CurrentPrice"",
+            ""value"": """",
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Expected future market price of each share"",
+            ""symbol"": ""FuturePrice"",
+            ""value"": """",
+            ""shape"": [
+                ""N""
+            ]
+        },
+        {
+            ""definition"": ""Transaction cost rate per share sold"",
+            ""symbol"": ""TransactionRate"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Capital gains tax rate on the profit from selling shares"",
+            ""symbol"": ""TaxRate"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Amount of money the investor needs to raise"",
+            ""symbol"": ""K"",
+            ""value"": """",
+            ""shape"": []
+        }
+    ]
+}","{
+  ""N"": 3,
+  ""Bought"": [100, 150, 80],
+  ""BuyPrice"": [50, 40, 30],
+  ""CurrentPrice"": [60, 35, 32],
+  ""FuturePrice"": [65, 44, 34],
+  ""TransactionRate"": 1.0,
+  ""TaxRate"": 15.0,
+  ""K"": 5000
+}"
+"A company is dealing with \\param{I} different items over a planning horizon of \\param{M} months. The buy price of item \\param{i} in month \\param{m} is given by \\param{BuyPrice}. All items can be sold after refining for the same \\param{SellPrice}. Each item is either a vegetable or not, which is indicated by \\param{IsVegetable}. There is a limited refining capability where at most \\param{MaxVegetableRefiningPerMonth} of vegetables and \\param{MaxNonVegetableRefiningPerMonth} of non-vegetables can be refined in any given month. The company has a storage size of \\param{StorageSize} and incurs a \\param{StorageCost} for storing items per month. The refined products must fall within a hardness range of \\param{MinHardness} to \\param{MaxHardness}, where the hardness of item \\param{i} is \\param{Hardness}. Initially, the storage contains an amount of \\param{InitialAmount} of items. What buying, storing, and manufacturing policy should the company pursue in order to maximize profit?","{
+    ""background"": ""The company deals with various items categorized into vegetables and non-vegetables, which are bought, refined, stored, and sold over a planning horizon of months. Refining capacity for both types of items is limited, and there are storage limitations with associated costs. The company must manage the hardness of the items and start with an initial amount of items in storage."",
+    ""constraints"": [
+        ""All items bought, stored, and sold are non-negative"",
+        ""Hardness of refined items must be at least MinHardness"",
+        ""Hardness of refined items must not exceed MaxHardness"",
+        ""At most MaxVegetableRefiningPerMonth vegetables can be refined per month"",
+        ""At most MaxNonVegetableRefiningPerMonth non-vegetables can be refined per month"",
+        ""Total storage used must not exceed StorageSize"",
+        ""StorageSize must accommodate the InitialAmount of items""
+    ],
+    ""objective"": ""Maximize the company's profit by determining the optimal buying, storing, and manufacturing policy"",""parameters"": [
+        {
+            ""definition"": ""Number of months"",
+            ""symbol"": ""M"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Number of different items"",
+            ""symbol"": ""I"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Month m buy price of item i"",
+            ""symbol"": ""BuyPrice"",
+            ""value"": """",
+            ""shape"": [
+                ""M"",
+                ""I""
+            ]
+        },
+        {
+            ""definition"": ""Sell price of the products after refining"",
+            ""symbol"": ""SellPrice"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Indicator whether item i is a vegetable"",
+            ""symbol"": ""IsVegetable"",
+            ""value"": """",
+            ""shape"": [
+                ""I""
+            ]
+        },
+        {
+            ""definition"": ""Maximum refining capability for vegetables per month"",
+            ""symbol"": ""MaxVegetableRefiningPerMonth"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Maximum refining capability for non-vegetables per month"",
+            ""symbol"": ""MaxNonVegetableRefiningPerMonth"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Size of the storage"",
+            ""symbol"": ""StorageSize"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Cost for storing items per month"",
+            ""symbol"": ""StorageCost"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""The maximum hardness allowed for the products after refining"",
+            ""symbol"": ""MaxHardness"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""The minimum hardness required for the products after refining"",
+            ""symbol"": ""MinHardness"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Hardness of item i"",
+            ""symbol"": ""Hardness"",
+            ""value"": """",
+            ""shape"": [
+                ""I""
+            ]
+        },
+        {
+            ""definition"": ""Initial amount of items in storage at the beginning of the planning horizon"",
+            ""symbol"": ""InitialAmount"",
+            ""value"": """",
+            ""shape"": []
+        }
+    ]
+}","{
+    ""M"": 6,
+    ""I"": 5,
+    ""BuyPrice"":[
+        [110, 120, 130, 110, 115],
+        [130, 130, 110, 90, 115],
+        [110, 140, 130, 100, 95],
+        [120, 110, 120, 120, 125],
+        [100, 120, 150, 110, 105],
+        [90, 100, 140, 80, 135]
+    ],
+    ""SellPrice"": 150,
+    ""IsVegetable"": [true, true, false, false, false],
+    ""MaxVegetableRefiningPerMonth"": 200,
+    ""MaxNonVegetableRefiningPerMonth"": 250,
+    ""StorageSize"": 1000,
+    ""StorageCost"": 5,
+    ""MinHardness"": 3,
+    ""MaxHardness"": 6,
+    ""Hardness"": [8.8, 6.1, 2.0, 4.2, 5.0],
+    ""InitialAmount"": 500
+}"
+Determine the shortest route that the traveler can take to visit all \\param{N} towns and return to \\param{StartCity}.,"{
+    ""background"": ""Identifying the shortest route for a traveler to visit a certain number of towns and return to the original starting town."",
+    ""constraints"": [
+        ""The traveler must visit each town exactly once"",
+        ""The traveler must return to StartCity after visiting all other towns"",
+        ""The distance between any two towns is non-negative""
+    ],
+    ""objective"": ""Minimize the total travel distance for the route"",
+    ""parameters"": [
+        {
+            ""definition"": ""Number of towns to visit"",
+            ""symbol"": ""N"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Index of the start city"",
+            ""symbol"": ""StartCity"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Distance from city i to city j"",
+            ""symbol"": ""Distances"",
+            ""value"": """",
+            ""shape"": [""N"", ""N""]
+        }
+    ]
+}","{
+    ""N"": 6,
+    ""Distances"": [
+        [0, 182, 70, 399, 56, 214],
+        [182, 0, 255, 229, 132, 267],
+        [70, 255, 0, 472, 127, 287],
+        [399, 229, 472, 0, 356, 484],
+        [56, 132, 127, 356, 0, 179],
+        [214, 267, 287, 484, 179, 0]
+    ],
+    ""StartCity"": 0
+}"
+"Determine the assignment of consultants to projects that minimizes the total cost, given the fixed \\param{FixedCosts} for each project, \\param{AdditionalCosts} for assigning consultant i to project j, and the \\param{MaxProjectsPerConsultant} that can be handled by a single consultant.","{
+    ""background"": ""Assign consultants to projects in a way that minimizes the total cost, considering fixed costs per project, additional costs for assigning specific consultants to specific projects, and the maximum number of projects a consultant can handle."",
+    ""constraints"": [
+        ""Each consultant can handle up to MaxProjectsPerConsultant projects"",
+        ""Each project must be assigned at least one consultant"",
+        ""Consultants must be assigned to projects in a way that their total number of projects does not exceed MaxProjectsPerConsultant""
+    ],
+    ""objective"": ""Minimize the total cost of assigning consultants to projects"",
+    ""parameters"": [
+        {
+            ""definition"": ""Fixed cost for project j"",
+            ""symbol"": ""FixedCosts"",
+            ""value"": """",
+            ""shape"": [
+                ""J""
+            ]
+        },
+        {
+            ""definition"": ""Additional cost for assigning consultant i to project j"",
+            ""symbol"": ""AdditionalCosts"",
+            ""value"": """",
+            ""shape"": [
+                ""I"",
+                ""J""
+            ]
+        },
+        {
+            ""definition"": ""Maximum number of projects that can be assigned to a consultant"",
+            ""symbol"": ""MaxProjectsPerConsultant"",
+            ""value"": 0,
+            ""shape"": []
+        }
+    ]
+}","{
+  ""FixedCosts"": [100, 150, 135],
+  ""AdditionalCosts"": [[10, 12, 20],
+                       [10, 8, 12],
+                       [15, 8, 20],
+                       [10, 6, 15],
+                       [8, 10, 15]],
+  ""MaxProjectsPerConsultant"": 3
+}"
+"Determine a strategy to minimize costs from unloading (\\param{UnloadCosts}), storage (\\param{HoldingCost}), and crane rentals (\\param{CraneCost}) over the period. The demands over the time periods are given by \\param{Demands}, with a corresponding unloading capacity per period specified by \\param{UnloadCapacity}. The system starts with an initial inventory of containers given by \\param{InitContainer}, and the maximum container inventory is limited to \\param{MaxContainer}. The logistics also involve \\param{NumCranes} number of cranes with \\param{CraneCapacity} each to aid in the unloading process.","{
+    ""background"": ""A logistics strategy is required to minimize the total costs associated with unloading, storage, and crane rentals while meeting demands and adhering to capacity constraints."",
+    ""constraints"": [
+        ""Demands must be met for each time period"",
+        ""Unloading capacity per period cannot exceed the specified UnloadCapacity"",
+        ""Maximum container inventory must not exceed MaxContainer""
+    ],
+    ""objective"": ""Minimize the total costs of UnloadCosts, HoldingCost, and CraneCost"",
+    ""parameters"": [
+        {
+            ""definition"": ""The number of time periods"",
+            ""symbol"": ""T"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Demand at time t"",
+            ""symbol"": ""Demands"",
+            ""value"": """",
+            ""shape"": [
+                ""T""
+            ]
+        },
+        {
+            ""definition"": ""Unloading cost at time t"",
+            ""symbol"": ""UnloadCosts"",
+            ""value"": """",
+            ""shape"": [
+                ""T""
+            ]
+        },
+        {
+            ""definition"": ""Unloading capacity at time t"",
+            ""symbol"": ""UnloadCapacity"",
+            ""value"": """",
+            ""shape"": [
+                ""T""
+            ]
+        },
+        {
+            ""definition"": ""Cost for holding containers"",
+            ""symbol"": ""HoldingCost"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Maximum number of containers that can be held"",
+            ""symbol"": ""MaxContainer"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Initial number of containers at the start"",
+            ""symbol"": ""InitContainer"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Number of cranes available for unloading"",
+            ""symbol"": ""NumCranes"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Capacity of each crane"",
+            ""symbol"": ""CraneCapacity"",
+            ""value"": 0,
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Cost for renting each crane"",
+            ""symbol"": ""CraneCost"",
+            ""value"": 0,
+            ""shape"": []
+        }
+    ]
+}","{
+    ""T"": 4,
+    ""Demands"": [450, 700, 500, 750],
+    ""UnloadCosts"": [75, 100, 105, 130],
+    ""UnloadCapacity"": [800, 500, 450, 700],
+    ""HoldingCost"": 20,
+    ""MaxContainer"": 500,
+    ""InitContainer"": 200,
+    ""NumCranes"": 4,
+    ""CraneCapacity"": 200,
+    ""CraneCost"": 1000
+}"
+"How many officers should the town assign to each shift in order to minimize the total cost, given that there are S shifts, defined by the number of officers needed for each shift \\param{OfficersNeeded}, and the respective costs of assigning an officer to each shift \\param{ShiftCosts}?","{
+    ""background"": ""The town needs to determine the number of officers to assign per shift to minimize the total cost of staffing."",
+    ""constraints"": [
+        ""Number of officers assigned to each shift is non-negative"",
+        ""Number of officers assigned meets the OfficersNeeded for each shift""
+    ],
+    ""objective"": ""Minimize the total cost of assigning officers to each of the S shifts"",
+    ""parameters"": [
+        {
+            ""definition"": ""Number of shifts for which officers are needed"",
+            ""symbol"": ""NumShifts"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Number of officers needed for shift s"",
+            ""symbol"": ""OfficersNeeded"",
+            ""value"": """",
+            ""shape"": [""NumShifts""]
+        },
+        {
+            ""definition"": ""Cost of assigning an officer to shift s"",
+            ""symbol"": ""ShiftCosts"",
+            ""value"": """",
+            ""shape"": [""NumShifts""]
+        }
+    ]
+}","{
+    ""NumShifts"": 6,
+    ""OfficersNeeded"": [15, 13, 11, 11, 9, 7],
+    ""ShiftCosts"": [500, 480, 450, 460, 470, 490]
+}"
+"How to distribute these files on the floppy disks in order to minimize the number of floppy disks used, given that each floppy disk has a \\param{Capacity} and there are 5 different files with sizes represented by \\param{Size}.","{
+    ""background"": ""The problem is to determine the optimal distribution of 5 different files across floppy disks in a way that minimizes the total number of floppy disks used."",
+    ""constraints"": [
+        ""The sum of file sizes on each floppy disk cannot exceed the Capacity"",
+        ""Each file must be placed on exactly one floppy disk"",
+        ""File sizes are non-negative""
+    ],
+    ""objective"": ""Minimize the number of floppy disks used in the distribution of files"",
+    ""parameters"": [
+        {
+            ""definition"": ""Total capacity of a floppy disk"",
+            ""symbol"": ""Capacity"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Size of each file j"",
+            ""symbol"": ""Size"",
+            ""value"": """",
+            ""shape"": [
+                5
+            ]
+        }
+    ]
+}","{
+	""Capacity"": 3,
+	""Size"": [1, 2, 0.5, 1.5, 2.5]
+}"
+"Determine the quantities to be produced such that all the production constraints are satisfied and the profit is maximized. The parameters include the number of different products \\param{NumProducts} and the number of different machines \\param{NumMachines}. Each product k requires \\param{ProduceTime}_{k,m} to produce on machine m. Each machine m has a total available time of \\param{AvailableTime}_m. The profit from producing one unit of product k is \\param{Profit}_k.
+","{
+    ""background"": ""The production involves multiple products and machines, with each product requiring specific production time on each machine and yielding a certain profit."",
+    ""constraints"": [
+        ""Each product k must be produced in non-negative quantities"",
+        ""For each machine m, the total production time for all products cannot exceed AvailableTime""
+    ],
+    ""objective"": ""Maximize the total profit from producing different products subject to production time constraints on each machine"",
+    ""parameters"": [
+        {
+            ""definition"": ""Number of different products"",
+            ""symbol"": ""NumProducts"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Number of different machines"",
+            ""symbol"": ""NumMachines"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Time to produce one unit of product k on machine m"",
+            ""symbol"": ""ProduceTime"",
+            ""value"": """",
+            ""shape"": [""NumProducts"", ""NumMachines""]
+        },
+        {
+            ""definition"": ""Total available time on machine m"",
+            ""symbol"": ""AvailableTime"",
+            ""value"": """",
+            ""shape"": [""NumMachines""]
+        },
+        {
+            ""definition"": ""Profit from producing one unit of product k"",
+            ""symbol"": ""Profit"",
+            ""value"": """",
+            ""shape"": [""NumProducts""]
+        }
+    ]
+}
+","{
+    ""NumProducts"": 2,
+    ""NumMachines"": 2,
+    ""ProduceTime"": [
+        [1, 3],
+        [2, 1]
+    ],
+    ""AvailableTime"": [200, 100],
+    ""Profit"": [20, 10]
+}"
+Fit the \u2018best\u2019 straight line y = bx + a where the objective is to minimize the maximum deviation of all the \\param{K} observed values of \\param{Y} from the value predicted by the linear relationship. The observed values of y are given by \\param{Y} and the observed values of x are given by \\param{X}.,"{
+    ""background"": ""The problem is to identify the parameters of a linear model that fits the observed x and y data points in such a way that the maximum deviation of the observed y values from the predicted y values is minimized."",
+    ""constraints"": [
+        ""The deviation is the absolute difference between predicted y values and observed y values"",
+        ""Deviation should be minimized for all K observed values""
+    ],
+    ""objective"": ""Minimize the maximum deviation of all K observed values from the predicted y values"",
+    ""description"": ""Fit the \u2018best\u2019 straight line y = bx + a where the objective is to minimize the maximum deviation of all the \\param{K} observed values of \\param{Y} from the value predicted by the linear relationship. The observed values of y are given by \\param{Y} and the observed values of x are given by \\param{X}."",
+    ""parameters"": [
+        {
+            ""definition"": ""Number of observed data points"",
+            ""symbol"": ""NumObs"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Observed values of y"",
+            ""symbol"": ""Y"",
+            ""value"": """",
+            ""shape"": [""NumObs""]
+        },
+        {
+            ""definition"": ""Observed values of x"",
+            ""symbol"": ""X"",
+            ""value"": """",
+            ""shape"": [""NumObs""]
+        }
+    ]
+}","{
+    ""NumObs"": 19,
+    ""Y"": [
+        1.0, 0.9, 0.7, 1.5, 2.0, 2.4, 3.2, 2.0, 2.7, 3.5, 1.0, 4.0, 3.6, 2.7,
+        5.7, 4.6, 6.0, 6.8, 7.3
+    ],
+    ""X"": [
+        0.0, 0.5, 1.0, 1.5, 1.9, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.6,
+        7.0, 7.6, 8.5, 9.0, 10.0
+    ]
+}"
+Fit the 'best' straight line \\param{Y} = b\\param{X} + a to this set of data points. The objective is to minimise the sum of absolute deviations of each observed value of \\param{Y} from the value predicted by the linear relationship.,"{
+    ""background"": ""The problem involves finding the 'best' linear relationship in the form of Y = bX + a that fits a set of data points. The 'best' fit minimizes the total absolute deviation of observed Y values from those predicted by the linear equation."",
+    ""constraints"": [],
+    ""objective"": ""Minimize the sum of absolute deviations between the observed Y values and the values predicted by the model Y = bX + a"",
+    ""parameters"": [
+        {
+            ""definition"": ""Number of data points"",
+            ""symbol"": ""K"",
+            ""value"": """",
+            ""shape"": []
+        },
+        {
+            ""definition"": ""Observed values of the dependent variable"",
+            ""symbol"": ""Y"",
+            ""value"": """",
+            ""shape"": [
+                ""K""
+            ]
+        },
+        {
+            ""definition"": ""Observed values of the independent variable"",
+            ""symbol"": ""X"",
+            ""value"": """",
+            ""shape"": [
+                ""K""
+            ]
+        }
+    ]
+}","{
+    ""K"": 19,
+    ""Y"": [1.0, 0.9, 0.7, 1.5, 2.0, 2.4, 3.2, 2.0, 2.7, 3.5, 1.0, 4.0, 3.6, 2.7, 5.7, 4.6, 6.0, 6.8, 7.3],
+    ""X"": [0.0, 0.5, 1.0, 1.5, 1.9, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.6, 7.0, 7.6, 8.5, 9.0, 10.0]
+}"
